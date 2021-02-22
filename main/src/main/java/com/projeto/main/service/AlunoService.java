@@ -56,20 +56,16 @@ public class AlunoService {
 		
 		Optional<Aluno> aluno = repository.findById(id);
 		Curso curso = cursoRepository.findOneById(dto.getCurso().getId());
-		boolean validate = valid.ValidateStudentsFields(dto);
 
 		if (aluno.isPresent() && Objects.nonNull(curso)) {
-
-			if (!validate) {
+	
 				aluno.get().setNome(dto.getNome());
 				aluno.get().setEmail(dto.getEmail());
 				aluno.get().setSenha(dto.getSenha());
 				aluno.get().setCurso(curso);
 
 				return ResponseEntity.ok().build();
-			} else {
-				return ResponseEntity.status(HttpStatus.CONFLICT).build();
-			}
+			
 		}
 		return ResponseEntity.notFound().build();
 	}

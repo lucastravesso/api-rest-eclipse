@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 
 import javax.persistence.Id;
 
+import com.projeto.main.dto.CursoDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -29,5 +30,10 @@ public class Curso {
 	@Column(name = "tipo_curso")
 	protected String tipo;
 
+	public Curso(CursoDTO dto)
+	{
+		this.nome = dto.getNome();
+		this.tipo = dto.getTipo();
+	}
 
 }
