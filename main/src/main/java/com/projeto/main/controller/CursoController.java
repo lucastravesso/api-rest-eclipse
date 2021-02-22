@@ -56,7 +56,7 @@ public class CursoController {
 	}
 	
 	@PutMapping("/atualizar-curso/{id}")
-	public ResponseEntity<?> atualizar(@RequestBody @Valid CursoDTO dto, @PathVariable Integer id)
+	public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody @Valid CursoDTO dto)
 	{
 		return service.atualizar(id, dto);
 	}

@@ -1,6 +1,7 @@
 package com.projeto.main.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -82,12 +83,12 @@ public class CursoService {
 
 	public ResponseEntity<?> atualizar(Integer id, CursoDTO dto)
 	{
-		Optional<Curso> curso = repository.findById(id);
+		Curso curso = repository.findOneById(id);
 		
-		if(curso.isPresent())
+		if(Objects.nonNull(curso))
 		{
-			curso.get().setNome(dto.getNome());
-			curso.get().setTipo(dto.getTipo());
+			curso.setNome(dto.getNome());
+			curso.setTipo(dto.getTipo());
 			
 			return ResponseEntity.ok().build();
 		}
