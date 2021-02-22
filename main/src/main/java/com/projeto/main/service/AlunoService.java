@@ -16,6 +16,7 @@ import com.projeto.main.entity.Aluno;
 import com.projeto.main.entity.Curso;
 import com.projeto.main.repository.AlunoRepository;
 import com.projeto.main.repository.CursoRepository;
+import com.projeto.main.validator.Validator;
 
 @Service
 public class AlunoService {
@@ -26,12 +27,15 @@ public class AlunoService {
 	@Autowired
 	private CursoRepository cursoRepository;
 	
+	@Autowired
+	private Validator valid;
+	
 	private Mapper mapper = new DozerBeanMapper();
 	
 	public ResponseEntity<Aluno> insertAluno(AlunoDTO dto) {
 		
 		Curso curso = cursoRepository.findOneById(dto.getCurso().getId());
-		boolean validate = this.ValidateAtributesBy(dto, dto.getNome(), dto.getEmail());
+		boolean validate = valid.ValidateStudentsFields(dto);
 		
 		if(!validate)
 		{
@@ -52,7 +56,7 @@ public class AlunoService {
 		
 		Optional<Aluno> aluno = repository.findById(id);
 		Curso curso = cursoRepository.findOneById(dto.getCurso().getId());
-		boolean validate = this.ValidateAtributes(dto, id);
+		boolean validate = valid.ValidateStudentsFields(dto);
 
 		if (aluno.isPresent() && Objects.nonNull(curso)) {
 
@@ -100,32 +104,7 @@ public class AlunoService {
 		return ResponseEntity.notFound().build();
 	}
 
-	private boolean ValidateAtributes(AlunoDTO dto, Integer id)
-	{
-		Aluno aluno = repository.findOneById(id);
-		if(Objects.nonNull(aluno))
-		{
-			if(aluno.getNome().equals(dto.getNome()) || aluno.getEmail().equals(dto.getEmail()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-	private boolean ValidateAtributesBy(AlunoDTO dto, String nome, String email)
-	{
-		Aluno alunoNome = repository.findOneByName(nome);
-		Aluno alunoEmail = repository.findOneByEmail(email);
-		
-		if(Objects.nonNull(alunoNome) || Objects.nonNull(alunoEmail))
-		{
-			if(alunoNome.getNome().equals(dto.getNome()) || alunoEmail.getEmail().equals(dto.getEmail()))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+	
 }
 
 
