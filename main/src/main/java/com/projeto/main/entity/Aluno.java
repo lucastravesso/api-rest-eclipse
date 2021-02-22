@@ -1,5 +1,6 @@
 package com.projeto.main.entity;
 
+
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.projeto.main.dto.AlunoDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +24,7 @@ import lombok.NoArgsConstructor;
 @DynamicUpdate
 public class Aluno {
 
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	protected String nome;
@@ -30,5 +34,12 @@ public class Aluno {
 	@JoinColumn(name = "id_curso", foreignKey = @ForeignKey(name = "fk_id"))
 	private Curso curso;
 	
-	
+	public Aluno (AlunoDTO dto, Curso curso) {
+		
+		this.nome = dto.getNome();
+		this.email = dto.getEmail();
+		this.senha = dto.getSenha();
+		this.curso = curso;
+	}
+
 }
