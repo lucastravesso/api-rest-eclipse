@@ -3,8 +3,8 @@ package com.projeto.main.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,6 +56,7 @@ public class CursoController {
 	}
 	
 	@PutMapping("/atualizar-curso/{id}")
+	@Transactional
 	public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody @Valid CursoDTO dto)
 	{
 		return service.atualizar(id, dto);

@@ -52,7 +52,7 @@ public class CursoService {
 		if(curso.isPresent())
 		{
 			curso.get().setNome(dto.getNome());
-			//curso.get().setTipo(dto.getTipo());
+			curso.get().setTipo(dto.getTipo());
 		
 			
 			return ResponseEntity.ok().build();
