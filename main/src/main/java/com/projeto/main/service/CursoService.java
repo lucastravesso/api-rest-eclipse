@@ -1,7 +1,6 @@
 package com.projeto.main.service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -45,6 +44,21 @@ public class CursoService {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 	}
+	
+	public ResponseEntity<?> atualizar(Integer id, CursoDTO dto)
+	{
+		Optional<Curso> curso = repository.findById(id);
+		
+		if(curso.isPresent())
+		{
+			curso.get().setNome(dto.getNome());
+			//curso.get().setTipo(dto.getTipo());
+		
+			
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 
 	public List<CursoDTO> listar()
@@ -81,19 +95,7 @@ public class CursoService {
 	}
 	
 
-	public ResponseEntity<?> atualizar(Integer id, CursoDTO dto)
-	{
-		Curso curso = repository.findOneById(id);
-		
-		if(Objects.nonNull(curso))
-		{
-			curso.setNome(dto.getNome());
-			curso.setTipo(dto.getTipo());
-			
-			return ResponseEntity.ok().build();
-		}
-		return ResponseEntity.notFound().build();
-	}
+	
 	
 }
 
