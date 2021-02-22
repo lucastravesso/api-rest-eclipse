@@ -14,7 +14,7 @@ public class Validator{
 
 	@Autowired
 	private AlunoRepository repository;
-
+ 
 	public boolean ValidateStudentsFields(AlunoDTO dto)
 	{
 		Aluno alunoNome = repository.findOneByName(dto.getNome());
