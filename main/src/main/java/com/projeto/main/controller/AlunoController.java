@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto.main.dto.AlunoCursoDTO;
 import com.projeto.main.dto.AlunoDTO;
 import com.projeto.main.entity.Aluno;
 import com.projeto.main.service.AlunoService;
@@ -63,7 +64,7 @@ public class AlunoController {
 		return service.atualizarAluno(id, dto);
 	}
 	@GetMapping("/listar-alunos-curso/{id}")
-	public ResponseEntity<List<Aluno>> listarAlunosCurso(@PathVariable Integer id)
+	public ResponseEntity<List<AlunoCursoDTO>> listarAlunosCurso(@PathVariable Integer id)
 	{
 		return service.listarAlunosPorCurso(id);
 	}

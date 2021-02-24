@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projeto.main.dto.AlunoCursoDTO;
 import com.projeto.main.dto.AlunoDTO;
 import com.projeto.main.entity.Aluno;
 import com.projeto.main.entity.Curso;
@@ -98,12 +99,17 @@ public class AlunoService {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	public ResponseEntity<List<Aluno>> listarAlunosPorCurso(Integer id)
+	public ResponseEntity<List<AlunoCursoDTO>> listarAlunosPorCurso(Integer id)
 	{
 		List<Aluno> aluno = repository.findAllByCurso_Id(id);
 		if(Objects.nonNull(aluno))
 		{
-			return ResponseEntity.ok(aluno);
+			List<AlunoCursoDTO> res = aluno.stream().map(m -> {
+				AlunoCursoDTO dto = mapper.map(m, AlunoCursoDTO.class);
+				return dto;
+			}).collect(Collectors.toList());
+			
+			return ResponseEntity.ok(res);
 		}
 		return ResponseEntity.notFound().build();
 	}
