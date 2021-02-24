@@ -1,10 +1,10 @@
 package com.projeto.main.entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
 import javax.persistence.Id;
 
 import com.projeto.main.dto.CursoDTO;
@@ -29,6 +29,7 @@ public class Curso {
 	protected String nome;
 	@Column(name = "tipo_curso")
 	protected String tipo;
+
 
 	public Curso(CursoDTO dto)
 	{

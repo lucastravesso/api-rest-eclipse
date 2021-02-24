@@ -2,6 +2,7 @@ package com.projeto.main.controller;
 
 import java.util.List;
 
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -60,6 +61,11 @@ public class AlunoController {
 	public ResponseEntity<?> atualizar(@PathVariable Integer id, @RequestBody @Valid AlunoDTO dto)
 	{
 		return service.atualizarAluno(id, dto);
+	}
+	@GetMapping("/listar-alunos-curso/{id}")
+	public ResponseEntity<List<Aluno>> listarAlunosCurso(@PathVariable Integer id)
+	{
+		return service.listarAlunosPorCurso(id);
 	}
 	
 }
