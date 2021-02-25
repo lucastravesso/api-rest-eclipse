@@ -18,6 +18,7 @@ import lombok.Setter;
 @Builder
 public class AlunoDTO {
 
+	private int id;
 	@NotNull @NotEmpty @Length(max = 50)
 	private String nome;
 	@NotNull @NotEmpty @Length(max = 75)

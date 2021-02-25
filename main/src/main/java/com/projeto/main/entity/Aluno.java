@@ -19,19 +19,19 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Data
 @DynamicUpdate
+@Entity
 public class Aluno {
 
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	protected Integer id;
 	protected String nome;
 	protected String email;
 	protected String senha;
 	@ManyToOne(targetEntity = Curso.class)
-	@JoinColumn(name = "id_curso", foreignKey = @ForeignKey(name = "fk_id"))
+	@JoinColumn(name = "id_curso", foreignKey = @ForeignKey(name = "fk_id_curso"))
 	private Curso curso;
 	
 	public Aluno (AlunoDTO dto, Curso curso) {

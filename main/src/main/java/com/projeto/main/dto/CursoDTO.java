@@ -1,5 +1,6 @@
 package com.projeto.main.dto;
 
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -23,5 +24,6 @@ public class CursoDTO {
 	private String nome;
 	@NotNull @NotEmpty @Length(max = 75)
 	private String tipo;
+	
 
 }

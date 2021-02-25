@@ -12,9 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
 import com.projeto.main.dto.CursoDTO;
 import com.projeto.main.entity.Curso;
-
 import com.projeto.main.repository.CursoRepository;
 import com.projeto.main.validator.Validator;
 
@@ -75,9 +75,10 @@ public class CursoService {
 	public ResponseEntity<CursoDTO> procurar(Integer id)
 	{
 		Optional<Curso> curso = repository.findById(id);
+		
 		if(curso.isPresent())
 		{
-			return ResponseEntity.ok(mapper.map(curso.get(), CursoDTO.class));
+			return ResponseEntity.ok(mapper.map(curso, CursoDTO.class));
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -93,6 +94,7 @@ public class CursoService {
 		}
 		return ResponseEntity.notFound().build();
 	}
+	
 	
 
 	
