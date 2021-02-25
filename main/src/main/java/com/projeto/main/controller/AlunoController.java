@@ -37,7 +37,7 @@ public class AlunoController {
 	{
 		return service.insertAluno(dto);
 	}
-
+ 
 	@GetMapping(value = "/listar-tudo")
 	public List<AlunoDTO> listar()
 	{
