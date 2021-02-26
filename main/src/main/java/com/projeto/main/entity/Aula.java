@@ -1,6 +1,6 @@
 package com.projeto.main.entity;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -9,9 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.DynamicUpdate;
-
-import com.projeto.main.dto.AlunoDTO;
+import com.projeto.main.dto.AulaDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,26 +18,24 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@DynamicUpdate
 @Entity
-public class Aluno {
+public class Aula {
 
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
-	protected Integer id;
-	protected String nome;
-	protected String email;
-	protected String senha;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(name = "nome_aula")
+	private String nome;
+	private int modulo;
+	private int semestre;
 	@ManyToOne(targetEntity = Curso.class)
-	@JoinColumn(name = "id_curso", foreignKey = @ForeignKey(name = "fk_id_curso_aula"))
+	@JoinColumn(name = "id_curso", foreignKey = @ForeignKey(name = "fk_id_curso"))
 	private Curso curso;
 	
-	public Aluno (AlunoDTO dto, Curso curso) {
-		
+	public Aula (AulaDTO dto, Curso curso) 
+	{	
 		this.nome = dto.getNome();
-		this.email = dto.getEmail();
-		this.senha = dto.getSenha();
+		this.modulo = dto.getModulo();
+		this.semestre = dto.getSemestre();
 		this.curso = curso;
 	}
-
 }
