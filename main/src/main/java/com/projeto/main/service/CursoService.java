@@ -78,7 +78,7 @@ public class CursoService {
 		
 		if(curso.isPresent())
 		{
-			return ResponseEntity.ok(mapper.map(curso, CursoDTO.class));
+			return ResponseEntity.ok(mapper.map(curso.get(), CursoDTO.class));
 		}
 		return ResponseEntity.notFound().build();
 	}

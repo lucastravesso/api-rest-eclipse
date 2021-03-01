@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projeto.main.dto.AulaCursoDTO;
 import com.projeto.main.dto.AulaDTO;
 import com.projeto.main.entity.Aula;
 import com.projeto.main.entity.Curso;
@@ -62,6 +63,38 @@ public class AulaService {
 			AulaDTO dto = mapper.map(m, AulaDTO.class);
 			return dto;
 		}).collect(Collectors.toList());
+	}
+	public ResponseEntity<AulaDTO> listarPorId(Integer id)
+	{
+		Optional<Aula> aula = repository.findById(id);
+		if(aula.isPresent())
+		{
+			return ResponseEntity.ok(mapper.map(aula.get(), AulaDTO.class));
+		}
+		return ResponseEntity.notFound().build();
+	}
+	public ResponseEntity<?> deletar(Integer id)
+	{
+		Optional<Aula> aula = repository.findById(id);
+		if(aula.isPresent())
+		{
+			repository.deleteById(id);
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
+	public ResponseEntity<List<AulaCursoDTO>> listarAulasPorCurso(Integer id)
+	{
+		List<Aula> aula = repository.findAllByCurso_Id(id);
+		if(Objects.nonNull(aula))
+		{
+			List<AulaCursoDTO> res = aula.stream().map(m ->{
+				AulaCursoDTO dto = mapper.map(m, AulaCursoDTO.class);
+				return dto;
+			}).collect(Collectors.toList());
+			return ResponseEntity.ok(res);
+		}
+	return ResponseEntity.notFound().build();
 	}
 	
 	

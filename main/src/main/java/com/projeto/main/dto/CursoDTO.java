@@ -19,7 +19,7 @@ import lombok.Setter;
 @Builder
 public class CursoDTO {
 	
-	private Integer id;
+	private int id;
 	@NotNull @NotEmpty @Length(max = 50)
 	private String nome;
 	@NotNull @NotEmpty @Length(max = 75)
