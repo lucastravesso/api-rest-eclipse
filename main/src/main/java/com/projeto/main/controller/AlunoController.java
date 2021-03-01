@@ -63,7 +63,7 @@ public class AlunoController {
 	{
 		return service.atualizarAluno(id, dto);
 	}
-	@GetMapping("/listar-alunos-curso/{id}")
+	@GetMapping("/listar-aluno/curso/{id}")
 	public ResponseEntity<List<AlunoCursoDTO>> listarAlunosCurso(@PathVariable Integer id)
 	{
 		return service.listarAlunosPorCurso(id);

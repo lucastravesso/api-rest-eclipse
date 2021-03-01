@@ -57,7 +57,7 @@ public class AulaController {
 	{
 		return service.deletar(id);
 	}
-	@GetMapping("/listar-curso/{id}")
+	@GetMapping("/listar-aula/curso/{id}")
 	public ResponseEntity<List<AulaCursoDTO>> listarPorCurso(@PathVariable Integer id)
 	{
 		return service.listarAulasPorCurso(id);
