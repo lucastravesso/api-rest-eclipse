@@ -1,16 +1,18 @@
 package com.projeto.main.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.catalina.startup.ClassLoaderFactory.Repository;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projeto.main.dto.AlunoDTO;
+import com.projeto.main.dto.AulaDTO;
 import com.projeto.main.dto.MatriculaDTO;
 import com.projeto.main.entity.Aluno;
 import com.projeto.main.entity.Aula;
@@ -59,11 +61,28 @@ public class MatriculaService {
 	public List<MatriculaDTO> listar()
 	{
 		List<Matricula> matricula = mRepository.findAll();
-		return matricula.stream().map(m ->{
-			MatriculaDTO dto = mapper.map(m, MatriculaDTO.class);
+		
+		List<MatriculaDTO> dto = new ArrayList<>();
+				
+		matricula.stream().map(m ->{
+			
+			dto.stream().forEach(d ->{
+				d.setId(m.getId());
+				d.setAluno(mapper.map(m.getAluno(), AlunoDTO.class));
+				d.setAula(mapper.map(m.getAula(), AulaDTO.class));
+			});
 			return dto;
 		}).collect(Collectors.toList());
+		return dto;
 	}
-	
+	public ResponseEntity<MatriculaDTO> listarUm(Integer id)
+	{
+		Optional<Matricula> matricula = mRepository.findById(id);
+		if(matricula.isPresent())
+		{
+			return ResponseEntity.ok(mapper.map(matricula.get(), MatriculaDTO.class));
+		}
+		return ResponseEntity.notFound().build();
+	}
 }
 

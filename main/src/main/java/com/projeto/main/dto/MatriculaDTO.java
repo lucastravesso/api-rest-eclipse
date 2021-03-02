@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 public class MatriculaDTO {
 
-	private int id;
+	private Integer id;
 	private AlunoDTO aluno;
 	private AulaDTO aula;
 	
