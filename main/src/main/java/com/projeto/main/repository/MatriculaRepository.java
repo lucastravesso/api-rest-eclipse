@@ -11,6 +11,7 @@ public interface MatriculaRepository extends JpaRepository<Matricula, Integer>{
 	@Query("SELECT a from Matricula a where a.id = ?1")
 	Matricula findOneById(Integer id);
 	
+
 	//@Query("SELECT ALL FROM ALUNO a, AULA b, MATRICULA c WHERE c.ID_ALUNO = a.ID_ALUNO AND c.ID_AULA = b.ID_AULA")
 	//List<Matricula> findAllDto();
 	

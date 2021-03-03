@@ -2,14 +2,17 @@ package com.projeto.main.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,20 +41,27 @@ public class MatriculaController {
 		return service.deleteMatricula(id);
 	}
 	@GetMapping("/listar-tudo")
-	public List<MatriculaDTO> listarTudo()
+	public Page<Matricula> listarTudo()
 	{
 		return service.listar();
 	}
+	@PutMapping("/atualizar-matricula/{id}")
+	@Transactional
+	public ResponseEntity<?> atualizarMatricula(@PathVariable Integer id, @RequestBody @Valid MatriculaDTO dto)
+	{
+		return service.atualizarAula(id, dto);
+	}
+	/*
 	@GetMapping("/listar-matricula/aluno/{id}")
-	public List<AlunoAulaDTO> listarPorAluno(@PathVariable Integer id)
+	public ResponseEntity<List<AlunoAulaDTO>> listarPorAluno(@PathVariable Integer id)
 	{
 		return service.listarPorAluno(id);
 	}
 	@GetMapping("/listar-matricula/aula/{id}")
-	public List<AulaAlunoDTO> listarPorAula(@PathVariable Integer id)
+	public ResponseEntity<List<AulaAlunoDTO>> listarPorAula(@PathVariable Integer id)
 	{
 		return service.listarPorAula(id);
 	}
-	
+	*/
 	
 }

@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -58,32 +60,66 @@ public class MatriculaService {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	public List<MatriculaDTO> listar()
+	public Page<Matricula> listar()
 	{
+		Pageable p = Pageable.unpaged();
+		return mRepository.findAll(p);
+		/*
 		List<Matricula> matricula = mRepository.findAll();
-
+		
 		return matricula.stream().map(m ->{
 			MatriculaDTO dto = mapper.map(m, MatriculaDTO.class);
 			return dto;
-		}).collect(Collectors.toList());
+		}).collect(Collectors.toList());*/
 	}
-
-	public List<AlunoAulaDTO> listarPorAluno(Integer id)
+	
+	/*public ResponseEntity<List<AlunoAulaDTO>> listarPorAluno(Integer id)
 	{
 		List<MatriculaDTO> listagem = listar();
-		return listagem.stream().filter(e -> e.getAluno().getId() == id).map(m -> {
-			AlunoAulaDTO dto = mapper.map(m.getAula(), AlunoAulaDTO.class);
-			return dto;
-		}).collect(Collectors.toList());
+		
+		if(Objects.nonNull(id))
+		{
+			return ResponseEntity.ok(listagem.stream().filter(e -> e.getAluno().getId() == id).map(m -> {
+				AlunoAulaDTO dto = mapper.map(m.getAula(), AlunoAulaDTO.class);
+				return dto;
+			}).collect(Collectors.toList()));
+		}else {
+			return ResponseEntity.notFound().build();
+			
+		}
+		
 	}
-	public List<AulaAlunoDTO> listarPorAula(Integer id)
+	public ResponseEntity<List<AulaAlunoDTO>> listarPorAula(Integer id)
 	{
 		List<MatriculaDTO> listagem = listar();
-		return listagem.stream().filter(e -> e.getAula().getId() == id).map(m -> {
-			AulaAlunoDTO dto = mapper.map(m.getAluno(), AulaAlunoDTO.class);
-			return dto;
-		}).collect(Collectors.toList());
+		if(Objects.nonNull(id))
+		{
+			return ResponseEntity.ok(listagem.stream().filter(e -> e.getAula().getId() == id).map(m -> {
+				AulaAlunoDTO dto = mapper.map(m.getAluno(), AulaAlunoDTO.class);
+				return dto;
+			}).collect(Collectors.toList()));
+		}else 
+		{
+			return ResponseEntity.notFound().build();
+		}
 	}
+	*/
+	public ResponseEntity<?> atualizarAula(Integer id, MatriculaDTO dto)
+	{
+		Optional<Matricula> matricula = mRepository.findById(id);
+		Aluno aluno = alunoRepository.findOneById(dto.getAluno().getId());
+		Aula aula = aulaRepository.findOneById(dto.getAula().getId());
+		if(matricula.isPresent())
+		{
+			matricula.get().setAluno(aluno);
+			matricula.get().setAula(aula);
+			
+			return ResponseEntity.ok(matricula);
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	
 	
 }
 
