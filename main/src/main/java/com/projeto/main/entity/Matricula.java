@@ -6,9 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.DynamicUpdate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,18 +17,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@DynamicUpdate
 @Entity
 public class Matricula {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	@OneToOne(targetEntity = Aluno.class)
+	protected Integer id;
+	@NotNull
+	@ManyToOne(targetEntity = Aluno.class)
 	@JoinColumn(name = "id_aluno", foreignKey = @ForeignKey(name = "fk_id_aluno"))
-	private Aluno aluno;
-	@OneToOne(targetEntity = Aula.class)
+	protected Aluno aluno;
+	@NotNull
+	@ManyToOne(targetEntity = Aula.class)
 	@JoinColumn(name = "id_aula", foreignKey = @ForeignKey(name = "fk_id_aula"))
-	private Aula aula;
+	protected Aula aula;
+
 	
 	public Matricula(Aluno aluno, Aula aula)
 	{

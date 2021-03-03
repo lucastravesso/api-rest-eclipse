@@ -1,6 +1,7 @@
 package com.projeto.main.entity;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class Aluno {
 
 	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_aluno")
 	protected Integer id;
 	protected String nome;
 	protected String email;

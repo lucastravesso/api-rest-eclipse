@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Aula {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_aula")
 	private Integer id;
 	@Column(name = "nome_aula")
 	private String nome;
