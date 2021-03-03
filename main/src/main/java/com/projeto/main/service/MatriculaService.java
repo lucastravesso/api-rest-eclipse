@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.projeto.main.dto.AlunoAulaDTO;
+import com.projeto.main.dto.AulaAlunoDTO;
 import com.projeto.main.dto.MatriculaDTO;
 import com.projeto.main.entity.Aluno;
 import com.projeto.main.entity.Aula;
@@ -64,8 +66,24 @@ public class MatriculaService {
 			MatriculaDTO dto = mapper.map(m, MatriculaDTO.class);
 			return dto;
 		}).collect(Collectors.toList());
-
 	}
 
+	public List<AlunoAulaDTO> listarPorAluno(Integer id)
+	{
+		List<MatriculaDTO> listagem = listar();
+		return listagem.stream().filter(e -> e.getAluno().getId() == id).map(m -> {
+			AlunoAulaDTO dto = mapper.map(m.getAula(), AlunoAulaDTO.class);
+			return dto;
+		}).collect(Collectors.toList());
+	}
+	public List<AulaAlunoDTO> listarPorAula(Integer id)
+	{
+		List<MatriculaDTO> listagem = listar();
+		return listagem.stream().filter(e -> e.getAula().getId() == id).map(m -> {
+			AulaAlunoDTO dto = mapper.map(m.getAluno(), AulaAlunoDTO.class);
+			return dto;
+		}).collect(Collectors.toList());
+	}
+	
 }
 
