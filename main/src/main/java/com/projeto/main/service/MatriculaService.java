@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -60,20 +58,17 @@ public class MatriculaService {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	public Page<Matricula> listar()
+	public List<MatriculaDTO> listar()
 	{
-		Pageable p = Pageable.unpaged();
-		return mRepository.findAll(p);
-		/*
 		List<Matricula> matricula = mRepository.findAll();
 		
 		return matricula.stream().map(m ->{
 			MatriculaDTO dto = mapper.map(m, MatriculaDTO.class);
 			return dto;
-		}).collect(Collectors.toList());*/
+		}).collect(Collectors.toList());
 	}
 	
-	/*public ResponseEntity<List<AlunoAulaDTO>> listarPorAluno(Integer id)
+	public ResponseEntity<List<AlunoAulaDTO>> listarPorAluno(Integer id)
 	{
 		List<MatriculaDTO> listagem = listar();
 		
@@ -103,7 +98,7 @@ public class MatriculaService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	*/
+	
 	public ResponseEntity<?> atualizarAula(Integer id, MatriculaDTO dto)
 	{
 		Optional<Matricula> matricula = mRepository.findById(id);

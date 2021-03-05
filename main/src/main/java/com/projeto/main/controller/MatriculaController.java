@@ -6,7 +6,6 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +40,7 @@ public class MatriculaController {
 		return service.deleteMatricula(id);
 	}
 	@GetMapping("/listar-tudo")
-	public Page<Matricula> listarTudo()
+	public List<MatriculaDTO> listarTudo()
 	{
 		return service.listar();
 	}
@@ -51,7 +50,7 @@ public class MatriculaController {
 	{
 		return service.atualizarAula(id, dto);
 	}
-	/*
+	
 	@GetMapping("/listar-matricula/aluno/{id}")
 	public ResponseEntity<List<AlunoAulaDTO>> listarPorAluno(@PathVariable Integer id)
 	{
@@ -62,6 +61,6 @@ public class MatriculaController {
 	{
 		return service.listarPorAula(id);
 	}
-	*/
+	
 	
 }

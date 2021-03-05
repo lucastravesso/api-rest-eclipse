@@ -36,6 +36,7 @@ public class AlunoService {
 
 	public ResponseEntity<Aluno> insertAluno(AlunoDTO dto) {
 
+		
 		Curso curso = cursoRepository.findOneById(dto.getCurso().getId());
 		boolean validate = valid.ValidateStudentsFields(dto);
 
