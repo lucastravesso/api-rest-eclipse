@@ -114,6 +114,20 @@ public class AlunoService {
 		}
 		return ResponseEntity.notFound().build();
 	}
-
+	public ResponseEntity<?> logar(String nome,String senha)
+	{
+		Aluno user = repository.findOneByName(nome);
+		
+		if(Objects.nonNull(user))
+		{
+			if(user.getSenha().equals(senha))
+			{
+				return ResponseEntity.ok().build();
+			}else {
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+			}
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 }

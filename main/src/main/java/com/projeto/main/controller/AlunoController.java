@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -66,6 +67,11 @@ public class AlunoController {
 	public ResponseEntity<List<AlunoCursoDTO>> listarAlunosCurso(@PathVariable Integer id)
 	{
 		return service.listarAlunosPorCurso(id);
+	}
+	@PostMapping("/logar")
+	public ResponseEntity<?> loganAluno(@RequestParam(value ="nome", required = false) String nome,@RequestParam(value ="senha", required = false) String senha)
+	{
+		return service.logar(nome, senha);
 	}
 	
 }
