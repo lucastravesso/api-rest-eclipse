@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.projeto.main.dto.AlunoDTO;
 
@@ -25,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Data
 @DynamicUpdate
 @Entity
-public class Aluno {
+public class Aluno  {
 
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id_aluno")
@@ -41,7 +42,7 @@ public class Aluno {
 		
 		this.nome = dto.getNome();
 		this.email = dto.getEmail();
-		this.senha = dto.getSenha();
+		this.senha = new BCryptPasswordEncoder().encode(dto.getSenha());
 		this.curso = curso;
 	}
 

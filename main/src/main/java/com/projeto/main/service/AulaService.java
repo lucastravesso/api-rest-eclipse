@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import com.projeto.main.entity.Aula;
 import com.projeto.main.entity.Curso;
 import com.projeto.main.repository.AulaRepository;
 import com.projeto.main.repository.CursoRepository;
+import com.projeto.main.validator.Validator;
 
 @Service
 public class AulaService {
@@ -27,18 +29,32 @@ public class AulaService {
 	@Autowired
 	private CursoRepository cursoRepository;
 	
+	@Autowired
+	private Validator valid;
+	
 	private Mapper mapper = new DozerBeanMapper();
 	
 	public ResponseEntity<Aula> insertAula(AulaDTO dto)
 	{
-		Curso curso = cursoRepository.findOneById(dto.getCurso().getId());
-		if (Objects.nonNull(curso)) {
-			
-			Aula aula = new Aula(dto, curso);
-			repository.save(aula);
-			return ResponseEntity.ok(aula);
-		} else {
-			return ResponseEntity.notFound().build();
+		try {
+			Curso curso = cursoRepository.findOneById(dto.getCurso().getId());
+			boolean validate = valid.ValidateClassFields(dto);
+			if(!validate) {
+				if (Objects.nonNull(curso)) {
+					
+					Aula aula = new Aula(dto, curso);
+					repository.save(aula);
+					return ResponseEntity.ok(aula);
+				} else {
+					return ResponseEntity.notFound().build();
+				}
+			}
+			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		}catch(Exception e)
+		{
+			// ARRUMA QUERY DE SELECT BY NAME ( RETORNANDO DOIS VALORES E 
+			//CONFLITANDO A RESPOSTA NORMAL ) TRYCATCH PRA N MOSTRAR O ERRO
+		return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
 	}
 	public ResponseEntity<?> atualizarAula(Integer id, AulaDTO dto)

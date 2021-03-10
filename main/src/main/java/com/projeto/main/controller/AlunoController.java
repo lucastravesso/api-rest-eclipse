@@ -2,7 +2,6 @@ package com.projeto.main.controller;
 
 import java.util.List;
 
-
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 

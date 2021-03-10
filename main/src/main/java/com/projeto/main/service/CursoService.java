@@ -32,7 +32,7 @@ public class CursoService {
 
 	public ResponseEntity<Curso> insertCurso(CursoDTO dto) 
 	{
-		boolean validar = valid.ValidateClassFields(dto);
+		boolean validar = valid.ValidateCourseFields(dto);
 		
 		if(!validar)
 		{
@@ -94,10 +94,6 @@ public class CursoService {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
-	
-
-	
 	
 }
 

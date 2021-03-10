@@ -15,6 +15,9 @@ public interface AulaRepository extends JpaRepository<Aula, Integer>{
 	@Query("SELECT a from Aula a where a.id = ?1")
 	Aula findOneById(Integer id);
 	
+	@Query("SELECT a from Aula a where a.nome_aula like %?1%")
+	Aula findOneByNome(String nome);
+	
 	List<Aula> findAllByCurso_Id(Integer id);
 	
 }
