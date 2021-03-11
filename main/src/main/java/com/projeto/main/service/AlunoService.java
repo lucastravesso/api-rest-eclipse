@@ -10,6 +10,7 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.projeto.main.dto.AlunoCursoDTO;
@@ -120,9 +121,9 @@ public class AlunoService {
 		
 		if(Objects.nonNull(user))
 		{
-			if(user.getSenha().equals(senha))
+			if(BCrypt.checkpw(senha, user.getSenha()))
 			{
-				return ResponseEntity.ok().build();
+				return ResponseEntity.ok(user);
 			}else {
 				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
 			}

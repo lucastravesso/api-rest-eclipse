@@ -68,7 +68,7 @@ public class AlunoController {
 	{
 		return service.listarAlunosPorCurso(id);
 	}
-	@PostMapping("/logar")
+	@PutMapping("/logar")
 	public ResponseEntity<?> loganAluno(@RequestParam(value ="nome", required = false) String nome,@RequestParam(value ="senha", required = false) String senha)
 	{
 		return service.logar(nome, senha);

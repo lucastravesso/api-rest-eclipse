@@ -8,6 +8,8 @@ public class Crypt {
 	
 	//CRIPTOGRAFIA CRIADA COM MD5 NA MAO SEM USAR SERVIÇO DO SPRING DE BCrypt
 	
+	// MD5 é um sistema fraco de criptografia
+	
 	public static String crypt(String senha)
 	{
 		String retorno = "";
