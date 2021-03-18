@@ -22,12 +22,10 @@ public class OauthSecurity extends WebSecurityConfigurerAdapter{
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser("lucastravesso").password("admin123").roles("ADMIN");
 	}
-	
 	@Bean
 	public PasswordEncoder passwordEncoder()
 	{
