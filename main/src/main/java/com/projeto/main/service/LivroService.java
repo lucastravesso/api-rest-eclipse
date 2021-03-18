@@ -41,7 +41,7 @@ public class LivroService {
 		Optional<Livro> livro = livroRepository.findById(id);
 		if(livro.isPresent())
 		{
-			return ResponseEntity.ok(mapper.map(livro, LivroDTO.class));
+			return ResponseEntity.ok(mapper.map(livro.get(), LivroDTO.class));
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -50,6 +50,7 @@ public class LivroService {
 		Optional<Livro> livro = livroRepository.findById(id);
 		if(livro.isPresent())
 		{
+			livroRepository.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();

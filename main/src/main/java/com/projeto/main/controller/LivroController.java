@@ -41,8 +41,8 @@ public class LivroController {
 	{
 		return livroService.procurarLivroUnico(id);
 	}
-	@DeleteMapping("/deletar-livro")
-	public ResponseEntity<?> deletarLivro(Integer id)
+	@DeleteMapping("/deletar-livro/{id}")
+	public ResponseEntity<?> deletarLivro(@PathVariable("id") Integer id)
 	{
 		return livroService.deletarLivro(id);
 	}

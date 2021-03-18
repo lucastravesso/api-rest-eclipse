@@ -10,8 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
-import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.NoOp;
-
 @EnableWebSecurity
 @EnableAuthorizationServer
 @EnableResourceServer
